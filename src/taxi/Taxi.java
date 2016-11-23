@@ -22,7 +22,8 @@ public class Taxi {
     List<Customer> clients = new ArrayList<Customer>();
     Queue<Integer> path = new LinkedList<Integer>();
 
-    public Taxi() {
+    public Taxi(int cap) {
+        capacity = cap;
     }
     
     public int getNum(){

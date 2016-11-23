@@ -30,7 +30,7 @@ public class TaxiScheduling {
         x = Integer.parseInt(parts[0]);
         taxis = new Taxi[x]; //Initialize the taxi's
         for(int i=0; i<x; i++){
-            Taxi taxi = new Taxi();
+            Taxi taxi = new Taxi(c);
             taxi.ID = i;
             taxis[i] = taxi;
         }
@@ -191,10 +191,9 @@ public class TaxiScheduling {
             for (int i=0; i<taxis.length; i++){
                 
                 if(taxis[i].isEmpty()) {
-                    directWalk(taxis[i], orderQueue.poll());
-                } else {
-                    directWalk(taxis[i], taxis[i].clients.get(0));
-                }
+                    taxis[i].clients.add(orderQueue.poll());
+                } 
+                directWalk(taxis[i], taxis[i].clients.get(0));
                 
                 //System.out.println(taxis[0].getNum()+taxis[0].clients.get(0).getLoc());
             }
