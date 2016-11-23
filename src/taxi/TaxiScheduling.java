@@ -189,16 +189,23 @@ public class TaxiScheduling {
             }
             
             for (int i=0; i<taxis.length; i++){
-                boolean status = directWalk(taxis[i], orderQueue.poll());
-                System.out.println(taxis[0].getNum()+taxis[0].clients.get(0).getLoc());
-                if(status){
-                    orderQueue.remove();
+                
+                if(taxis[i].isEmpty()) {
+                    directWalk(taxis[i], orderQueue.poll());
+                } else {
+                    directWalk(taxis[i], taxis[i].clients.get(0));
                 }
+                
+                //System.out.println(taxis[0].getNum()+taxis[0].clients.get(0).getLoc());
             }
             
             
             scanner.println("c");
-            if(!scanner.hasNextLine() && orderQueue.isEmpty()){
+            boolean empty = true;
+            for(int i=0; i<taxis.length; i++) {
+                empty &= taxis[i].isEmpty();
+            }
+            if(!scanner.hasNextLine() && orderQueue.isEmpty() && empty){
                 done=true;
             }
         }
