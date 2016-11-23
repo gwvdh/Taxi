@@ -31,6 +31,7 @@ public class TaxiScheduling {
         taxis = new Taxi[x]; //Initialize the taxi's
         for(int i=0; i<x; i++){
             Taxi taxi = new Taxi();
+            taxi.ID = i;
             taxis[i] = taxi;
         }
         c = Integer.parseInt(parts[1]);
@@ -159,8 +160,14 @@ public class TaxiScheduling {
             t.setLoc(t.getPath());
         }
         return false;
-        
-        
+    }
+    
+    public void setInitialPos(){
+        for(Taxi taxi:taxis){
+            taxi.setLoc((int) (Math.random()*n));
+            //System.out.println("Taxi "+taxi.getNum()+" to pos: "+taxi.getLoc());
+        }
+        scanner.println("c");
     }
     
     public void run(){
@@ -172,22 +179,28 @@ public class TaxiScheduling {
         //System.out.println(Arrays.toString(inefficientShortestPath(2,6)));
         
         //Initialize position...
-        taxis[0].setLoc(0);
-        scanner.println("c");
+        //taxis[0].setLoc(0);
+        //scanner.println("c");
+        setInitialPos();
+        
         while(!done){
             if(scanner.hasNextLine()){
                 getOrders(scanner.nextLine());
             }
-            //System.out.println("Queue size: "+orderQueue.size());
-            boolean status = directWalk(taxis[0], orderQueue.peek());
-            if(status){
-                orderQueue.remove();
+            
+            for (int i=0; i<taxis.length; i++){
+                boolean status = directWalk(taxis[i], orderQueue.poll());
+                System.out.println(taxis[0].getNum()+taxis[0].clients.get(0).getLoc());
+                if(status){
+                    orderQueue.remove();
+                }
             }
+            
+            
             scanner.println("c");
             if(!scanner.hasNextLine() && orderQueue.isEmpty()){
                 done=true;
             }
-            
         }
     }
     /**
