@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import taxi.Customer.Status;
 
 
 
@@ -51,7 +52,10 @@ public class Taxi {
         capacity = c;
     }
     public boolean isIn(Customer c){
-        return clients.contains(c);
+        if(clients.contains(c) && c.status == Status.TRANSIT){
+            return true;
+        }
+        return false;
     }
     public void addPas(Customer customer) {
         clients.add(customer);
