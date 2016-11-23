@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-public class TaxiSchedualing {
+public class TaxiScheduling {
     int l;
     double alpha;
     int m;
@@ -193,7 +193,7 @@ public class TaxiSchedualing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        (new TaxiSchedualing()).run();
+        (new TaxiScheduling()).run();
     }
     
 }
