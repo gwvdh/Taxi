@@ -40,6 +40,9 @@ public class Taxi {
     public int getPath(){
         return path.poll();
     }
+    public boolean isEmpty() {
+        return clients.isEmpty();
+    }
     public void setPath(Integer[] p){
         path.addAll(Arrays.asList(p) );
     }
