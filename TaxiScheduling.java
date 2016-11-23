@@ -28,7 +28,7 @@ public class TaxiScheduling {
         m = Integer.parseInt(scanner.nextLine());
         String[] parts = scanner.nextLine().split(" ");
         x = Integer.parseInt(parts[0]);
-        taxis = new Taxi[x]; //Initialize the taxi's
+        taxis = new Taxi[x]; //Initialize the taxis
         for(int i=0; i<x; i++){
             Taxi taxi = new Taxi();
             taxis[i] = taxi;
