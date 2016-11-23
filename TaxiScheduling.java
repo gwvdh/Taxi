@@ -108,9 +108,9 @@ public class TaxiScheduling {
             //System.out.println("current: "+current);
         }
         //System.out.println(Arrays.toString(distance));
-        Integer[] path = new Integer[distance[goal]+1];
+        Integer[] path = new Integer[distance[goal]];
         current = goal;
-        for(int i=distance[goal]; i>=0; i--) { //Walk backwards from the goal to the source to find the shortest path
+        for(int i=distance[goal]-1; i>=0; i--) { //Walk backwards from the goal to the source to find the shortest path
             //System.out.println(i);
             path[i] = current;
             int smallest = 2*n;
