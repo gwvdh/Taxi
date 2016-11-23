@@ -22,13 +22,13 @@ public class TaxiScheduling {
     boolean[][] adMat;
     Queue<Customer> orderQueue = new LinkedList<Customer>();
     
-    public void initialize() {
+    public void initialize() { //Get the first lines of code that give the parameters and the graph structure.
         l = Integer.parseInt(scanner.nextLine());
         alpha = Double.parseDouble(scanner.nextLine());
         m = Integer.parseInt(scanner.nextLine());
         String[] parts = scanner.nextLine().split(" ");
         x = Integer.parseInt(parts[0]);
-        taxis = new Taxi[x];
+        taxis = new Taxi[x]; //Initialize the taxi's
         for(int i=0; i<x; i++){
             Taxi taxi = new Taxi();
             taxis[i] = taxi;
@@ -49,7 +49,7 @@ public class TaxiScheduling {
         scanner.nextLine();//THIS REMOVES T AND T' !!!!!!!!! TEMP SOLUTION>>>
     }
     
-    public void printAdMat() {
+    public void printAdMat() { //Method for printing an adjacency matrix.
         for(int j=0; j<=n*2; j++) {
                 System.out.printf("-");
             }
@@ -70,14 +70,14 @@ public class TaxiScheduling {
         System.out.printf("\n");
     }
     
-    public Integer[] inefficientShortestPath(int start, int goal) {
-        Integer[] distance  = new Integer[n];
+    public Integer[] inefficientShortestPath(int start, int goal) { //Shortest path according to Dijkstra
+        Integer[] distance  = new Integer[n];//n amount of nodes
         boolean[] visited = new boolean[n];
         for(int i=0; i<n; i++) {
             if(i==start) {
-                distance[i]=0;
+                distance[i]=0;//Set starter node distance to 0
             }else {
-                distance[i]=2*n;
+                distance[i]=2*n;//Set other nodes to a high number (should be infinity, 2*n can never be reached)
             }
         }
         int current = start;
@@ -85,8 +85,8 @@ public class TaxiScheduling {
             //System.out.println(current);
             visited[current] = true;
             for(int j=0; j<n; j++) {
-                if(adMat[current][j] && !visited[j] && distance[current]<distance[j]) {
-                    distance[j]=distance[current]+1;
+                if(adMat[current][j] && !visited[j] && distance[current]<distance[j]) {//If the node is adjacent, not visited and the shortest distance:
+                    distance[j]=distance[current]+1;//Set the node distance as previous shortest distance+1 (Distance current node to previous node)
                     //System.out.println(Arrays.toString(distance));
                 }
             }
@@ -110,7 +110,7 @@ public class TaxiScheduling {
         //System.out.println(Arrays.toString(distance));
         Integer[] path = new Integer[distance[goal]+1];
         current = goal;
-        for(int i=distance[goal]; i>=0; i--) {
+        for(int i=distance[goal]; i>=0; i--) { //Walk backwards from the goal to the source to find the shortest path
             //System.out.println(i);
             path[i] = current;
             int smallest = 2*n;
@@ -127,19 +127,19 @@ public class TaxiScheduling {
         return path;
     }
     
-    public void getOrders(String s) {
-        int p = Integer.parseInt(s.split(" ")[0]);
+    public void getOrders(String s) { //Get the client information from input.
+        int p = Integer.parseInt(s.split(" ")[0]); //Get the first element indicating the amount of orders
         for(int i=0; i<p;i++){
-            Customer c = new Customer();
-            c.setLoc(Integer.parseInt(s.split(" ")[i*2+1]));
-            c.setDest(Integer.parseInt(s.split(" ")[i*2+2]));
-            orderQueue.add(c);
+            Customer c = new Customer(); //Make new customer
+            c.setLoc(Integer.parseInt(s.split(" ")[i*2+1])); //Set the first element of the customer as the location (by def)
+            c.setDest(Integer.parseInt(s.split(" ")[i*2+2])); //Set the second element of the customer as the destination (by def)
+            orderQueue.add(c); //Add the customer to the queue
         }
     }
     
-    public boolean directWalk(Taxi t, Customer c) {
+    public boolean directWalk(Taxi t, Customer c) { //Direct walk algorithm which goes to the first customer in queue and brings her to her destination
         System.out.println(t.path);
-        if(t.getLoc() == c.getDest() && t.isIn(c)){
+        if(t.getLoc() == c.getDest() && t.isIn(c)){ //If the taxi is at the destination of the customer and the customer is in the taxi
             //System.out.println("A");
             t.dropPas();
             return true;
