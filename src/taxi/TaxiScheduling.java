@@ -190,10 +190,13 @@ public class TaxiScheduling {
             
             for (int i=0; i<taxis.length; i++){
                 
-                if(taxis[i].isEmpty()) {
+                if(taxis[i].isEmpty() && !orderQueue.isEmpty()) {
                     taxis[i].clients.add(orderQueue.poll());
+                    directWalk(taxis[i], taxis[i].clients.get(0));
+                } else if(!taxis[i].isEmpty()) {
+                    directWalk(taxis[i], taxis[i].clients.get(0));
                 } 
-                directWalk(taxis[i], taxis[i].clients.get(0));
+                
                 
                 //System.out.println(taxis[0].getNum()+taxis[0].clients.get(0).getLoc());
             }

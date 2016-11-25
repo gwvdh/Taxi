@@ -58,7 +58,7 @@ public class Taxi {
         return false;
     }
     public void addPas(Customer customer) {
-        clients.add(customer);
+        //clients.add(customer);
         customer.setStatus(Customer.Status.TRANSIT);
         scanner.println("p "+ this.ID+" "+ this.location+" ");
     }
@@ -79,7 +79,9 @@ public class Taxi {
             if(clients.get(i).getDest() == this.location){
                 scanner.println("d "+ this.ID+" "+ this.location+" ");
                 clients.get(i).setStatus(Customer.Status.ARRIVED);
+                //System.out.println("before: "+clients);
                 clients.remove(i);
+                //System.out.println("after: "+clients);
             }
         }
     }
